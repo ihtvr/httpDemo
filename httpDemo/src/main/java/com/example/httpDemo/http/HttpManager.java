@@ -1,6 +1,5 @@
 package com.example.httpDemo.http;
 
-import com.example.httpDemo.model.AppApis;
 import com.example.httpDemo.common.Config;
 
 import java.util.concurrent.TimeUnit;
@@ -13,6 +12,7 @@ import retrofit2.converter.gson.GsonConverterFactory;
 import retrofit2.converter.scalars.ScalarsConverterFactory;
 
 public class HttpManager {
+    private static final String BASE_URL = "https://www.wanandroid.com";
     private static final int DEFAULT_TIME_OUT = 10;//超时时间5s
     private static final int DEFAULT_READ_TIME_OUT = 10;//读取时间
     private static final int DEFAULT_WRITE_TIME_OUT = 10;//读取时间
@@ -24,16 +24,11 @@ public class HttpManager {
         builder.connectTimeout(DEFAULT_TIME_OUT, TimeUnit.SECONDS);
         builder.readTimeout(DEFAULT_READ_TIME_OUT, TimeUnit.SECONDS);
         builder.writeTimeout(DEFAULT_WRITE_TIME_OUT, TimeUnit.SECONDS);
-//        builder.cache(new Cache(new File(Environment.getExternalStorageDirectory() + "/RxJavaDemo"),1024*1024*10));
-        //cookie持久化管理
-//        builder.cookieJar(new PersistentCookieJar(new SetCookieCache(),new SharedPrefsCookiePersistor(App.getInstance())));
         if (Config.DEBUG)
             addInterceptor(builder);
-
-
         mRetrofit = new Retrofit.Builder()
                 .client(builder.build())
-                .baseUrl(AppApis.BASE_URL)
+                .baseUrl(BASE_URL)
                 .addConverterFactory(ScalarsConverterFactory.create())
                 .addConverterFactory(GsonConverterFactory.create())
                 .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
@@ -49,17 +44,8 @@ public class HttpManager {
         // 添加日志拦截器
         LoggingInterceptor loggingInterceptor = new LoggingInterceptor();
         loggingInterceptor.setLevel(HttpLoggingInterceptor.Level.BODY);
-
-
-//        HttpHeaderInterceptor httpHeaderInterceptor = new HttpHeaderInterceptor.Builder().build();
-        //日志拦截
         builder.addInterceptor(loggingInterceptor);
-        //头部参数拦截
-//        builder.addInterceptor(httpHeaderInterceptor);
-//        //缓存拦截
-//        builder.addInterceptor(new HttpCacheInterceptor());
-//        //请求参数拦截
-//        builder.addInterceptor(new CommonParamsInterceptor());
+
     }
 
     //单例 饿汉模式

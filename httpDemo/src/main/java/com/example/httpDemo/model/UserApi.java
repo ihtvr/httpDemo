@@ -1,30 +1,16 @@
 package com.example.httpDemo.model;
 
 import com.example.httpDemo.bean.BaseResponse;
-import com.example.httpDemo.bean.collect.FeedArticleListData;
 import com.example.httpDemo.bean.login.LoginData;
-import com.example.httpDemo.http.HttpManager;
 
 import io.reactivex.Observable;
+import retrofit2.http.Field;
+import retrofit2.http.FormUrlEncoded;
+import retrofit2.http.POST;
 
-public class UserApi {
+public interface UserApi {
 
-    //单例 饿汉模式
-    private static class SingletonHolder {
-        private static UserApi userApi = new UserApi();
-    }
-
-    public static UserApi getInstance() {
-        return UserApi.SingletonHolder.userApi;
-    }
-
-    private AppApis appApis;
-    public UserApi(){
-        appApis = HttpManager.getInstance().creat(AppApis.class);
-    }
-
-
-    public Observable<BaseResponse<LoginData>> userLogin(String username, String password) {
-        return appApis.userLogin(username,password);
-    }
+    @POST("user/login")
+    @FormUrlEncoded
+    Observable<BaseResponse<LoginData>> userLogin(@Field("userName") String userName, @Field("password") String password);
 }

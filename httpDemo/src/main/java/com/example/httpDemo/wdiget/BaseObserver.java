@@ -6,16 +6,21 @@ import com.example.httpDemo.utils.LogHelper;
 
 import io.reactivex.observers.ResourceObserver;
 
+/**
+ * 错误结果处理
+ *
+ * @param <T>
+ */
 public abstract class BaseObserver<T> extends ResourceObserver<T> {
 
     private Context context;
     private String errorStr;
 
-    public BaseObserver(Context context){
+    public BaseObserver(Context context) {
         this.context = context;
     }
 
-    public BaseObserver(Context context,String errorStr){
+    public BaseObserver(Context context, String errorStr) {
         this.context = context;
         this.errorStr = errorStr;
 
@@ -28,6 +33,6 @@ public abstract class BaseObserver<T> extends ResourceObserver<T> {
 
     @Override
     public void onComplete() {
-
+        LogHelper.d("onComplete");
     }
 }

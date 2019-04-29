@@ -1,7 +1,7 @@
 package com.example.httpDemo.utils;
 
 import com.example.httpDemo.bean.BaseResponse;
-import com.example.httpDemo.http.exception.OtherException;
+import com.example.httpDemo.http.exception.CommonException;
 
 import io.reactivex.FlowableTransformer;
 import io.reactivex.Observable;
@@ -46,7 +46,7 @@ public class RxUtils {
                     && CommonUtils.isNetworkConnected()){
                 return createData(baseResponse.getData());
             }else {
-                return Observable.error(new OtherException());
+                return Observable.error(new CommonException());
             }
 
         });

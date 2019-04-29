@@ -8,10 +8,9 @@ import android.widget.Button;
 import android.widget.TextView;
 
 import com.example.httpDemo.bean.login.LoginData;
+import com.example.httpDemo.http.HttpManager;
 import com.example.httpDemo.model.UserApi;
 import com.example.mvpdemo.R;
-import com.example.httpDemo.bean.collect.FeedArticleListData;
-import com.example.httpDemo.model.ArticleApi;
 import com.example.httpDemo.utils.LogHelper;
 import com.example.httpDemo.utils.RxUtils;
 import com.example.httpDemo.wdiget.BaseObserver;
@@ -39,18 +38,7 @@ public class MainActivity extends AppCompatActivity {
 
     @OnClick(R.id.btn_click)
     public void onViewClick(View view) {
-//        singleInterfacePresenter.getData(0);
-//        ArticleApi.getInstance().getFeedArticleList(0)
-//                .compose(RxUtils.rxObSchedulerHelper())
-//                .compose(RxUtils.handleResult())
-//                .subscribeWith(new BaseObserver<FeedArticleListData>(context, "错了") {
-//                    @Override
-//                    public void onNext(FeedArticleListData feedArticleListData) {
-//                        LogHelper.d("Success");
-//                    }
-//                });
-
-        UserApi.getInstance().userLogin("123","saa")
+        HttpManager.getInstance().creat(UserApi.class).userLogin("123", "saa")
                 .compose(RxUtils.rxObSchedulerHelper())
                 .compose(RxUtils.handleResult())
                 .subscribeWith(new BaseObserver<LoginData>(context) {

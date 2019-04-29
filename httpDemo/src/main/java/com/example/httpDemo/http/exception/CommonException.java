@@ -5,5 +5,5 @@ package com.example.httpDemo.http.exception;
  * @date 2017/11/27
  */
 
-public class OtherException extends Exception {
+public class CommonException extends Exception {
 }
